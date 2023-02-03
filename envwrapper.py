@@ -3,8 +3,9 @@ import numpy as np
 
 
 class EnvWrapper(gym.Wrapper):
-    def __init__(self, env, seed=None, n_frames=4, img_size=(84, 84)):
+    def __init__(self, env, seed=None, n_tracks=1000, n_frames=4, img_size=(84, 84)):
         super().__init__(env)
+        self.n_tracks = n_tracks
         self.n_frames = n_frames
         self.img_size = img_size
         self.observation_space = gym.spaces.Box(
@@ -23,8 +24,10 @@ class EnvWrapper(gym.Wrapper):
 
         return state
 
-    def reset(self):
-        seed = self.rng.integers(1000).item()
+    def reset(self, seed=None):
+        if seed == None:
+            seed = self.rng.integers(self.n_tracks).item()
+
         state, info = self.env.reset(seed=seed)
         state = self._preprocess(state)
         return np.expand_dims(state, axis=0).repeat(self.n_frames, axis=0), info
