@@ -30,7 +30,7 @@ def main():
 
     # Put all the checkpoint models through 50 test drives to evaluate performance
     for fname in sorted(os.listdir("./model")):
-        if not fname.endswith(".pt") or "best" in fname:
+        if not fname.startswith("checkpoint_") or not fname.endswith(".pt"):
             continue
 
         print(f"Evaluating {fname} ... ", end="", flush=True)
@@ -72,7 +72,7 @@ def main():
         if avg_score > best_avg_score:
             best_avg_score = avg_score
             best_fname = fname
-            torch.save(checkpoint, "./model/model_best.pt")
+            torch.save(checkpoint, "./model/model.pt")
 
     print(f"The best model is {best_fname}, with a average score of {best_avg_score / 50:5f}")
 

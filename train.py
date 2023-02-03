@@ -102,13 +102,13 @@ def train(env, model, agent, device, n_episodes=3000, discount_factor=0.99):
         writer.flush()
 
         if (episode + 1) % 100 == 0:
-            print("Saving the results... ", end="", flush=True)
+            print("Saving checkpoint... ", end="", flush=True)
             torch.save(
                 {
                     "it": episode + 1,
                     "model": model.state_dict(),
                 },
-                f"./model/model_{episode + 1:04d}.pt",
+                f"./model/checkpoint_{episode + 1:04d}.pt",
             )
             play(model, f"train_{episode + 1:04d}.gif")
             print("Done!")
