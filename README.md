@@ -13,7 +13,7 @@ model does not actually play this well consistently 😅
 
 ## Note
 
-The model are trained over 3000 episodes played, with 10 epoch per episode.
+The model are trained over 3000 episodes played, with 10 epochs per episode.
 After some testing, I found that the best batch size is the same size as the
 episode's length, so basically performs one parameter update per epoch
 with all the data in one episode. I've also limited the map pool size to 1000,
